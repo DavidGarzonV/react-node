@@ -1,4 +1,4 @@
-import React, { Component, FormEvent } from 'react'; // let's also import Component
+import React from 'react'; // let's also import Component
 import { NavLink } from 'react-router-dom';
 import { Alert } from '../alert';
 

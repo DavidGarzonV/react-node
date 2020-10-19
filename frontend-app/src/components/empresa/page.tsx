@@ -50,7 +50,7 @@ const IndexEmpresa = (props: IProps) => {
                                         </NavLink>
                                     </td>
                                     <td className="text-center">
-                                        <a onClick={(event) => props.deleteEmpresa(event, empresa.id)}>
+                                        <a href="/#" onClick={(event) => props.deleteEmpresa(event, empresa.id)}>
                                             <FontAwesomeIcon icon={faTrash} />
                                         </a>
                                     </td>

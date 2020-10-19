@@ -178,6 +178,10 @@ a.button svg {
     padding: 18px;
     border: 1px solid $gris;
     border-radius: 15px;
+    display: block;
+}
+p.alertMessage{
+    margin-top: 10px;
 }
 
 .alert.error {

@@ -14,7 +14,8 @@ type AutocompleteOption = {
     value: string
 }
 interface EmpleadoState extends EmpleadoInt {
-    empresas: AutocompleteOption[]
+    empresas: AutocompleteOption[],
+    validate: boolean | string
 }
 
 class EmpleadoEdit extends React.Component<EmpleadoInt, EmpleadoState> {
@@ -30,6 +31,7 @@ class EmpleadoEdit extends React.Component<EmpleadoInt, EmpleadoState> {
             email: '',
             company: null,
             empresas: [],
+            validate: false,
         };
 
         this.handleChange = this.handleChange.bind(this);
@@ -50,6 +52,11 @@ class EmpleadoEdit extends React.Component<EmpleadoInt, EmpleadoState> {
         this.getCompanies();
     }
 
+    validateEmail(email: string) {
+        const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        return re.test(String(email).toLowerCase());
+    }
+
     handleChange = (e: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLSelectElement>) => {
         this.setState({ [e.target.name]: e.target.value });
     }
@@ -61,7 +68,13 @@ class EmpleadoEdit extends React.Component<EmpleadoInt, EmpleadoState> {
         if (data.company?.value != undefined) {
             data.company = data.company.value;
         }
-        console.log(data);
+
+        if (data.email !== "" && !this.validateEmail(data.email)) {
+            this.setState({ validate: 'Formato de email inválido' })
+            return;
+        } else {
+            this.setState({ validate: false })
+        }
 
         if (this.state.id === "") {
             let response = await request(EMPLEADO_URL, "post", data);
@@ -102,6 +115,7 @@ class EmpleadoEdit extends React.Component<EmpleadoInt, EmpleadoState> {
                 changeBox={this.changeBox}
                 empresas={this.state.empresas}
                 company={this.state.company}
+                validate={this.state.validate}
                 combo={<ComboBox options={this.state.empresas} name="company" value={this.state.company} label="Empresa" setInput={this.changeBox} />}
                 name={this.state.name}
                 last_name={this.state.last_name}

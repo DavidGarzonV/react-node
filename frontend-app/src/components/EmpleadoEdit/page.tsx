@@ -18,6 +18,7 @@ type IProps = {
     email: string,
     id: string,
     combo: any,
+    validate?:boolean | string
 }
 
 const FormEdit = (props: IProps) => {
@@ -27,6 +28,11 @@ const FormEdit = (props: IProps) => {
             <NavLink exact={true} to="/empleado">
                 <FontAwesomeIcon icon={faReply} />
             </NavLink>
+            {props.validate !== false && 
+                <p className="alertMessage">
+                    <span className="alert error">{props.validate}</span>
+                </p>
+            }
             <form onSubmit={props.handleSubmit}>
                 <div>
                     <label>Nombre:</label>

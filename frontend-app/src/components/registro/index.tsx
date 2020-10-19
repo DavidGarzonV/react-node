@@ -1,6 +1,5 @@
 import React, { Component } from 'react'; // let's also import Component
 import { RouteComponentProps } from 'react-router-dom';
-import { Alert } from '../alert';
 import { request } from '../../funciones';
 import Swal from 'sweetalert2';
 import FormRegistro from './page';

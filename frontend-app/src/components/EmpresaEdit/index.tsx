@@ -1,9 +1,6 @@
 import React from 'react'; // let's also import Component
 import { request } from '../../funciones';
 import { EmpresaInt } from '../../interfaces/empresaint';
-import { NavLink } from 'react-router-dom';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faReply } from '@fortawesome/free-solid-svg-icons'
 import Swal from 'sweetalert2';
 import { EMPLEADO_URL, EMPRESA_URL } from '../../constants';
 import { EmpleadoInt } from '../../interfaces/empleadoint';
@@ -72,10 +69,9 @@ class EmpresaEdit extends React.Component<EmpresaInt, EmpresaState> {
         e.preventDefault();
         //Remove id from state
         let { id, empleados, ...data } = this.state;
-        console.log(data);
 
         data.contacto = this.state.empleado;
-        if (data.contacto?.value != undefined) {
+        if (data.contacto?.value !== undefined) {
             data.contacto = data.contacto.value;
         }
 
