@@ -1,14 +1,16 @@
 import React, { Component } from 'react'; // let's also import Component
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faEdit, faTrash, faPlus } from '@fortawesome/free-solid-svg-icons'
-import { EmpresaInt } from './empresaint';
-import { request } from '../funciones';
+import { faPlus } from '@fortawesome/free-solid-svg-icons'
+import { EmpresaInt } from '../../interfaces/empresaint';
+import { request } from '../../funciones';
 import { NavLink } from 'react-router-dom';
 import Swal from 'sweetalert2';
-import { EMPRESA_URL } from '../constants';
+import { EMPRESA_URL } from '../../constants';
+import IndexEmpresa from './page';
 
 // the clock's state has one field: The current time, based upon the
 // JavaScript class Date
+type Iprops = {}
 
 type EmpresaState = {
     empresas: EmpresaInt[],
@@ -18,7 +20,19 @@ type EmpresaState = {
 // Clock has no properties, but the current state is of type EmpresaState
 // The generic parameters in the Component typing allow to pass props
 // and state. Since we don't have props, we pass an empty object.
-export class Empresa extends Component<{}, EmpresaState> {
+export class Empresa extends Component<Iprops, EmpresaState> {
+
+    constructor(props: Iprops) {
+        super(props);
+
+        this.state = {
+            empresas: [],
+            sinempresas: true
+        }
+
+        this.eliminarEmpresa = this.eliminarEmpresa.bind(this)
+        this.deleteEmpresa = this.deleteEmpresa.bind(this)
+    }
 
     // The tick function sets the current state. TypeScript will let us know
     // which ones we are allowed to set.
@@ -70,7 +84,7 @@ export class Empresa extends Component<{}, EmpresaState> {
             title: "Está seguro?",
             text: "Esta acción es irreversible",
             showCancelButton: true,
-            cancelButtonText:'Cancelar',
+            cancelButtonText: 'Cancelar',
             icon: 'warning',
         })
             .then((result) => {
@@ -84,55 +98,10 @@ export class Empresa extends Component<{}, EmpresaState> {
     render() {
         if (this.state.empresas.length > 0) {
             return (
-                <div className="indexcont">
-                    <h1>Listado de Empresas</h1>
-                    <div className="buttonlist">
-                        <NavLink exact={true} className='button' to='/empresa/edit'>
-                            <FontAwesomeIcon icon={faPlus} />
-                            Crear empresa
-                        </NavLink>
-                    </div>
-                    <div>
-                        <table className="table">
-                            <thead>
-                                <tr>
-                                    <th>Nombre(s)</th>
-                                    <th>Nit</th>
-                                    <th>Tipo</th>
-                                    <th>Contacto</th>
-                                    <th>
-                                        <FontAwesomeIcon icon={faEdit} />
-                                    </th>
-                                    <th>
-                                        <FontAwesomeIcon icon={faTrash} />
-                                    </th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {this.state.empresas.map((empresa, index) => {
-                                    return (
-                                        <tr key={empresa.id}>
-                                            <td className="text-center">{empresa.name}</td>
-                                            <td className="text-center">{empresa.nit}</td>
-                                            <td className="text-center">{empresa.tipo}</td>
-                                            <td className="text-center">{empresa.contacto?.name}</td>
-                                            <td className="text-center">
-                                                <NavLink exact={true} to={"/empresa/edit/" + empresa.id}>
-                                                    <FontAwesomeIcon icon={faEdit} />
-                                                </NavLink>
-                                            </td>
-                                            <td className="text-center">
-                                                <a onClick={(event) => this.deleteEmpresa(event, empresa.id)}>
-                                                    <FontAwesomeIcon icon={faTrash} />
-                                                </a>
-                                            </td>
-                                        </tr>
-                                    );
-                                })}
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
+                <IndexEmpresa
+                    empresas={this.state.empresas}
+                    deleteEmpresa={this.deleteEmpresa}
+                />
             );
         } else {
             if (this.state.sinempresas) {

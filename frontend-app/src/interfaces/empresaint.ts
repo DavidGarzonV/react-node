@@ -1,6 +1,7 @@
-import { EmpleadoInt } from './../empleado/empleadoint';
+import { AutocompleteOption } from './autocomplete';
+import { EmpleadoInt } from './empleadoint';
 
-export type EmpresaInt = {
+export interface EmpresaInt {
     [key: string]: any,
     id: string,
     name: string,

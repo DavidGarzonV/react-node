@@ -13,8 +13,6 @@ exports.EmpleadoEntity = void 0;
 const empresa_entity_1 = require("./../empresa/empresa.entity");
 const typeorm_1 = require("typeorm");
 let EmpleadoEntity = class EmpleadoEntity {
-    // @Column()
-    // readonly company: string;
     constructor(id, name, last_name, phone, email, company) {
         this.id = id;
         this.name = name;
@@ -45,7 +43,7 @@ __decorate([
     __metadata("design:type", String)
 ], EmpleadoEntity.prototype, "email", void 0);
 __decorate([
-    typeorm_1.OneToOne(type => empresa_entity_1.EmpresaEntity, { nullable: true }),
+    typeorm_1.ManyToOne(() => empresa_entity_1.EmpresaEntity),
     typeorm_1.JoinColumn(),
     __metadata("design:type", empresa_entity_1.EmpresaEntity)
 ], EmpleadoEntity.prototype, "company", void 0);

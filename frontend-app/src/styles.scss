@@ -1,11 +1,20 @@
 $gris: #dddd;
+$white: #fff;
+$green: #4caf50;
+$redDanger: #ff070726;
+$red:  #ae5252;
+$success: #b7d177bf;
+$blackThin: #495057;
 
 body,
-html,
-#root {
+html {
     height: 100%;
     margin: 0;
     background: #d7d2d2dd;
+}
+#root {
+    height: calc(100% - 5%);
+    padding-top: 25px;
 }
 ul.horizontal {
     list-style-type: none;
@@ -21,7 +30,7 @@ ul.horizontal {
 
 ul.horizontal a {
     display: inline-block;
-    color: white;
+    color: $white;
     text-align: center;
     padding: 14px 16px;
     text-decoration: none;
@@ -32,11 +41,10 @@ ul.horizontal a:hover:not(.active) {
 }
 
 ul.horizontal a.active {
-    background-color: #4caf50;
+    background-color: $green;
 }
 
 .container {
-    padding: 0 5%;
     margin-top: 48px;
     padding-top: 30px;
 }
@@ -48,8 +56,8 @@ a.button {
     text-align: center;
     min-height: 10px;
     border-radius: 15px;
-    background-color: #4caf50;
-    color: #ffff;
+    background-color: $green;
+    color: $white;
     display: block;
 }
 
@@ -68,15 +76,15 @@ label {
     display: block;
 }
 
-input:not([type="submit"]) {
+input:not([type="submit"]):not(.MuiAutocomplete-input) {
     height: 35px;
     display: block;
     width: 100%;
     font-size: 1rem;
     font-weight: 400;
     line-height: 1.5;
-    color: #495057;
-    background-color: #fff;
+    color: $blackThin;
+    background-color: $white;
     border: 1px solid #ced4da;
     border-radius: 0.25rem;
     box-sizing: border-box;
@@ -89,8 +97,8 @@ select {
     font-size: 1rem;
     font-weight: 400;
     line-height: 1.5;
-    color: #495057;
-    background-color: #fff;
+    color: $blackThin;
+    background-color: $white;
     background-clip: padding-box;
     border: 1px solid #ced4da;
     border-radius: 0.25rem;
@@ -100,7 +108,7 @@ select {
 
 .saveButton {
     border-radius: 10px;
-    color: #fff;
+    color: $white;
     background-color: #0069d9;
     text-align: center;
     vertical-align: middle;
@@ -155,31 +163,37 @@ a.button svg {
 .loginform {
     max-width: 600px;
     margin: 0 auto;
-    background-color: #fff;
+    background-color: $white;
     padding: 30px;
     border-radius: 18px;
 }
 .indexcont {
-    background-color: #fff;
     padding: 30px;
     border-radius: 18px;
+    overflow: auto;
+    background-color: $white;
 }
 
 .alertMessage .alert {
     padding: 18px;
-    border: 1px solid #ddd;
+    border: 1px solid $gris;
     border-radius: 15px;
 }
 
 .alert.error {
-    background-color: #ff070726;
-    color: #ae5252;
+    background-color: $redDanger;
+    color: $red;
 }
 
 .alert.success {
-    background-color: #b7d177bf;
+    background-color: $success;
 }
 
-.cerrarSesion{
+.cerrarSesion {
     float: right;
+}
+
+.MuiAutocomplete-root {
+    margin-top: 10px;
+    width: 100% !important;
 }

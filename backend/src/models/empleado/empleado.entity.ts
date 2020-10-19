@@ -1,5 +1,5 @@
 import { EmpresaEntity } from './../empresa/empresa.entity';
-import { Column, Entity, Index, JoinColumn, OneToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, Index, JoinColumn, ManyToOne, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity('empleado')
 export class EmpleadoEntity {
@@ -19,8 +19,7 @@ export class EmpleadoEntity {
     @Column()
     readonly email: string;
 
-    @OneToOne(type => EmpresaEntity, { nullable: true })
-    @Index({ unique: false })
+    @ManyToOne(() => EmpresaEntity)
     @JoinColumn()
     company: EmpresaEntity | null;
 

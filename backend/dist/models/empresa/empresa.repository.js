@@ -14,10 +14,10 @@ const typeorm_1 = require("typeorm");
 const empresa_entity_1 = require("./empresa.entity");
 class EmpresaRepository {
     getAllEmpresas() {
-        return typeorm_1.getManager().getRepository(empresa_entity_1.EmpresaEntity).find();
+        return typeorm_1.getManager().getRepository(empresa_entity_1.EmpresaEntity).find({ relations: ["contacto"] });
     }
     getEmpresaById(id) {
-        return typeorm_1.getManager().getRepository(empresa_entity_1.EmpresaEntity).findOne(id);
+        return typeorm_1.getManager().getRepository(empresa_entity_1.EmpresaEntity).findOne(id, { relations: ["contacto"] });
     }
     newEmpresa(empresa) {
         return typeorm_1.getManager().getRepository(empresa_entity_1.EmpresaEntity).save(empresa);

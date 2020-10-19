@@ -30,6 +30,7 @@ typeorm_1.createConnection({
     entities: [empleado_entity_1.EmpleadoEntity, empresa_entity_1.EmpresaEntity, user_entity_1.UserEntity]
 }).then((conexion) => __awaiter(void 0, void 0, void 0, function* () {
     console.log("db connected");
+    //Sincronize table configuration
     yield conexion.synchronize();
     const app = express_1.default();
     app.use(cors());

@@ -17,7 +17,7 @@ class EmpleadoRepository {
         return typeorm_1.getManager().getRepository(empleado_entity_1.EmpleadoEntity).find({ relations: ["company"] });
     }
     getEmpleadoById(id) {
-        return typeorm_1.getManager().getRepository(empleado_entity_1.EmpleadoEntity).findOne(id);
+        return typeorm_1.getManager().getRepository(empleado_entity_1.EmpleadoEntity).findOne(id, { relations: ["company"] });
     }
     newEmpleado(empleado) {
         return typeorm_1.getManager().getRepository(empleado_entity_1.EmpleadoEntity).save(empleado);

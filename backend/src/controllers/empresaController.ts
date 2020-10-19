@@ -2,6 +2,7 @@ import { PG_FOREIGN_KEY_VIOLATION } from './../exports/postgres-errors';
 import { EmpleadoRepository } from './../models/empleado/empleado.repository';
 import { EmpresaEntity } from '../models/empresa/empresa.entity';
 import { EmpresaRepository } from '../models/empresa/empresa.repository';
+import catchFunction from '../exports/catch';
 
 const repository = new EmpresaRepository();
 const empleadoRepository = new EmpleadoRepository();
@@ -12,9 +13,9 @@ export const getAllEmpresas = async (req: any, res: any) => {
 }
 
 export const getEmpresaById = async (req: any, res: any) => {
-    const result = await repository.getEmpresaById(req.body.id);
+    const result = await repository.getEmpresaById(req.params.id);
     if (result == undefined) {
-        res.json({error: "El empleado no existe"});
+        res.json({error: "La empresa no existe"});
     }else{
         res.send(result);
     }
@@ -37,7 +38,7 @@ export const updateEmpresa = async (req: any, res: any) => {
     const body = req.body;
 
     var contacto = null;
-    if (body.contacto != "") {
+    if (body.contacto !== undefined && body.contacto !== "") {
         contacto = await empleadoRepository.getEmpleadoById(body.contacto);
     }
 
@@ -52,11 +53,6 @@ export const deleteEmpresa = async (req: any, res: any) => {
         const empresas = await repository.getAllEmpresas();
         res.send(empresas);
     } catch (error) {
-        // If user already exists
-        if (error.code === PG_FOREIGN_KEY_VIOLATION) {
-            res.json({ error: "La empresa ya se encuentra asociado a uno o varios empleados" });
-        } else {
-            res.json({ error: error.code });
-        }
+        catchFunction(error, res);
     }
 }

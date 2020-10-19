@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlus } from '@fortawesome/free-solid-svg-icons'
-import { Loading } from '../components/loading';
 import { NavLink } from 'react-router-dom';
 
 export class Home extends Component {   

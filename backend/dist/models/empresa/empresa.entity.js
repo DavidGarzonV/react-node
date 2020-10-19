@@ -10,6 +10,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.EmpresaEntity = void 0;
+const empleado_entity_1 = require("./../empleado/empleado.entity");
 const typeorm_1 = require("typeorm");
 let EmpresaEntity = class EmpresaEntity {
     constructor(id, name, nit, tipo, contacto) {
@@ -37,12 +38,13 @@ __decorate([
     __metadata("design:type", String)
 ], EmpresaEntity.prototype, "tipo", void 0);
 __decorate([
-    typeorm_1.Column(),
-    __metadata("design:type", String)
+    typeorm_1.ManyToOne(() => empleado_entity_1.EmpleadoEntity),
+    typeorm_1.JoinColumn(),
+    __metadata("design:type", empleado_entity_1.EmpleadoEntity)
 ], EmpresaEntity.prototype, "contacto", void 0);
 EmpresaEntity = __decorate([
     typeorm_1.Entity('empresa'),
-    __metadata("design:paramtypes", [String, String, String, String, String])
+    __metadata("design:paramtypes", [String, String, String, String, empleado_entity_1.EmpleadoEntity])
 ], EmpresaEntity);
 exports.EmpresaEntity = EmpresaEntity;
 //# sourceMappingURL=empresa.entity.js.map

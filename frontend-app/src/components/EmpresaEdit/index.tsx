@@ -1,17 +1,23 @@
 import React from 'react'; // let's also import Component
-import { request } from '../funciones';
-import { EmpresaInt } from './empresaint';
+import { request } from '../../funciones';
+import { EmpresaInt } from '../../interfaces/empresaint';
 import { NavLink } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faReply } from '@fortawesome/free-solid-svg-icons'
 import Swal from 'sweetalert2';
-import { EMPLEADO_URL, EMPRESA_URL } from '../constants';
-import { EmpleadoInt } from '../empleado/empleadoint';
+import { EMPLEADO_URL, EMPRESA_URL } from '../../constants';
+import { EmpleadoInt } from '../../interfaces/empleadoint';
+import ComboBox from '../form/autocomplete';
+import FormEdit from '../EmpresaEdit/page';
 
+type AutocompleteOption = {
+    label: string,
+    value: string
+}
 type FormElement = React.FormEvent<HTMLFormElement>;
 
 interface EmpresaState extends EmpresaInt {
-    empleados?: Array<EmpleadoInt>
+    empleados: AutocompleteOption[]
 }
 
 class EmpresaEdit extends React.Component<EmpresaInt, EmpresaState> {
@@ -25,11 +31,12 @@ class EmpresaEdit extends React.Component<EmpresaInt, EmpresaState> {
             nit: '',
             tipo: '',
             contacto: null,
-            empleados: []
+            empleados: [],
         };
 
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.changeBoxEmpresa = this.changeBoxEmpresa.bind(this);
     }
 
     async editEmpresa(id: string) {
@@ -64,7 +71,13 @@ class EmpresaEdit extends React.Component<EmpresaInt, EmpresaState> {
     handleSubmit = async (e: FormElement) => {
         e.preventDefault();
         //Remove id from state
-        let { id, ...data } = this.state;
+        let { id, empleados, ...data } = this.state;
+        console.log(data);
+
+        data.contacto = this.state.empleado;
+        if (data.contacto?.value != undefined) {
+            data.contacto = data.contacto.value;
+        }
 
         if (this.state.id === "") {
             let response = await request(EMPRESA_URL, "post", data);
@@ -80,46 +93,22 @@ class EmpresaEdit extends React.Component<EmpresaInt, EmpresaState> {
         }
     }
 
+    //Select autocomplete
+    changeBoxEmpresa(name: string, value: any) {
+        this.setState({ [name]: value })
+    }
+
     render() {
         return (
-            <div className="indexcont">
-                <NavLink exact={true} to="/empresa">
-                    <FontAwesomeIcon icon={faReply} />
-                </NavLink>
-                <form onSubmit={this.handleSubmit}>
-                    <div>
-                        <label>Nombre:</label>
-                        <input type="text" name="name" required onChange={this.handleChange} value={this.state.name} />
-                    </div>
-                    <div>
-                        <label>Nit:</label>
-                        <input type="text" name="nit" required onChange={this.handleChange} value={this.state.nit} />
-                    </div>
-                    <div>
-                        <label>Tipo:</label>
-                        <select name="tipo" required onChange={this.handleChange} value={this.state.tipo}>
-                            <option value="">-- Ninguno --</option>
-                            <option value="pequenia">Pequeña</option>
-                            <option value="mediana">Mediana</option>
-                            <option value="grande">Grande</option>
-                        </select>
-                    </div>
-                    <div>
-                        <label>Contacto:</label>
-                        <select name="company" value={this.state.contacto?.id} onChange={this.handleChange}>
-                            <option value=''>-- Seleccione un empleado -- </option>
-                            {this.state.empleados?.map((empleado, index) => {
-                                return (
-                                    <option key={empleado.value} value={empleado.value}>{empleado.label}</option>
-                                )
-                            })
-                            }
-                        </select>
-                    </div>
-                    <input type="hidden" name="id" onChange={this.handleChange} value={this.state.id} />
-                    <input className="saveButton" type="submit" value="Guardar" />
-                </form>
-            </div>
+            <FormEdit
+                handleSubmit={this.handleSubmit}
+                handleChange={this.handleChange}
+                combo={<ComboBox options={this.state.empleados} name="contacto" value={this.state.contacto} label="Contacto" setInput={this.changeBoxEmpresa} />}
+                name={this.state.name}
+                nit={this.state.nit}
+                tipo={this.state.tipo}
+                id={this.state.id}
+            />
         )
     }
 }

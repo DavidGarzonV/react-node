@@ -26,7 +26,7 @@ export const request = async (path: string, method: string, bodyRequest = {}) =>
             });
         } else {
             await axios.delete(URL + path, axiosConfig
-                ).then((result => data = result)).catch((error) => {
+            ).then((result => data = result)).catch((error) => {
                 data = { statusCode: error.response.status };
             });
         }
@@ -43,8 +43,8 @@ export const request = async (path: string, method: string, bodyRequest = {}) =>
 }
 
 export const validateSession = async () => {
-    let response = await request('/auth/verify','post');
-    if (response.statusCode !== 401 && response.statusCode !== undefined) {
+    let response = await request('/auth/verify', 'post');
+    if (response.statusCode !== 401) {
         if (response.data.status) {
             return { status: true };
         }
