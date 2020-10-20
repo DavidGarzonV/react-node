@@ -2,7 +2,7 @@ $gris: #dddd;
 $white: #fff;
 $green: #4caf50;
 $redDanger: #ff070726;
-$red:  #ae5252;
+$red: #ae5252;
 $success: #b7d177bf;
 $blackThin: #495057;
 
@@ -28,7 +28,7 @@ ul.horizontal {
     left: 0;
 }
 
-ul.horizontal a {
+ul.horizontal a, .cerrarSesion button {
     display: inline-block;
     color: $white;
     text-align: center;
@@ -36,7 +36,7 @@ ul.horizontal a {
     text-decoration: none;
 }
 
-ul.horizontal a:hover:not(.active) {
+ul.horizontal a:hover:not(.active) , .cerrarSesion button:hover{
     background-color: #000;
 }
 
@@ -180,7 +180,7 @@ a.button svg {
     border-radius: 15px;
     display: block;
 }
-p.alertMessage{
+p.alertMessage {
     margin-top: 10px;
 }
 

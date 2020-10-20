@@ -1,10 +1,10 @@
 import React from 'react'; // let's also import Component
-import { request } from '../../funciones';
+import { request } from '../../functions';
 import { EmpresaInt } from '../../interfaces/empresaint';
 import Swal from 'sweetalert2';
 import { EMPLEADO_URL, EMPRESA_URL } from '../../constants';
 import { EmpleadoInt } from '../../interfaces/empleadoint';
-import ComboBox from '../form/autocomplete';
+import ComboBox from '../Form/autocomplete';
 import FormEdit from '../EmpresaEdit/page';
 
 type AutocompleteOption = {

@@ -24,7 +24,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 var router = express_1.default.Router();
-const empresaController = __importStar(require("../controllers/empresaController"));
+const empresaController = __importStar(require("../controllers/empresa/empresaController"));
 const autentication_1 = require("./../middlewares/autentication");
 router.get('/', [autentication_1.checkJwt], empresaController.getAllEmpresas);
 router.get('/:id', [autentication_1.checkJwt], empresaController.getEmpresaById);

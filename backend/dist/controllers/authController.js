@@ -29,7 +29,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.verify = exports.login = void 0;
-const user_repository_1 = require("../models/user/user.repository");
+const user_repository_1 = require("../repositories/user/user.repository");
 const jwt = __importStar(require("jsonwebtoken"));
 const bcrypt = __importStar(require("bcryptjs"));
 const repository = new user_repository_1.UserRepository();

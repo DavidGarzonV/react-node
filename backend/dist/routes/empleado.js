@@ -25,7 +25,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const autentication_1 = require("./../middlewares/autentication");
 const express_1 = __importDefault(require("express"));
 var router = express_1.default.Router();
-const empleadoController = __importStar(require("../controllers/empleadoController"));
+const empleadoController = __importStar(require("../controllers/empleado/empleadoController"));
 // router.get('/', [checkJwt], empleadoController.getAllEmpleados);
 router.get('/', [autentication_1.checkJwt], empleadoController.getAllEmpleados);
 router.get('/:id', [autentication_1.checkJwt], empleadoController.getEmpleadoById);

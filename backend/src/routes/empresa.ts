@@ -1,6 +1,6 @@
 import express from "express";
 var router = express.Router();
-import * as empresaController from '../controllers/empresaController';
+import * as empresaController from '../controllers/empresa/empresaController';
 import { checkJwt } from './../middlewares/autentication';
 
 router.get('/', [checkJwt], empresaController.getAllEmpresas);

@@ -40,8 +40,8 @@ var __rest = (this && this.__rest) || function (s, e) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.deleteUser = exports.updateUser = exports.newUser = exports.getUserById = exports.getAllUsers = void 0;
-const user_entity_1 = require("../models/user/user.entity");
-const user_repository_1 = require("../models/user/user.repository");
+const user_entity_1 = require("../entities/user/user.entity");
+const user_repository_1 = require("../repositories/user/user.repository");
 const bcrypt = __importStar(require("bcryptjs"));
 const postgres_errors_1 = require("../exports/postgres-errors");
 const repository = new user_repository_1.UserRepository();

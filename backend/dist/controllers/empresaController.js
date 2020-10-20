@@ -8,12 +8,15 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.deleteEmpresa = exports.updateEmpresa = exports.newEmpresa = exports.getEmpresaById = exports.getAllEmpresas = void 0;
-const postgres_errors_1 = require("./../exports/postgres-errors");
-const empleado_repository_1 = require("./../models/empleado/empleado.repository");
-const empresa_entity_1 = require("../models/empresa/empresa.entity");
-const empresa_repository_1 = require("../models/empresa/empresa.repository");
+const empresa_entity_1 = require("../entities/empresa/empresa.entity");
+const empleado_repository_1 = require("../repositories/empleado/empleado.repository");
+const empresa_repository_1 = require("../repositories/empresa/empresa.repository");
+const catch_1 = __importDefault(require("../exports/catch"));
 const repository = new empresa_repository_1.EmpresaRepository();
 const empleadoRepository = new empleado_repository_1.EmpleadoRepository();
 exports.getAllEmpresas = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
@@ -42,7 +45,7 @@ exports.newEmpresa = (req, res) => __awaiter(void 0, void 0, void 0, function* (
 exports.updateEmpresa = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const body = req.body;
     var contacto = null;
-    if (body.contacto != "") {
+    if (body.contacto !== undefined && body.contacto !== "") {
         contacto = yield empleadoRepository.getEmpleadoById(body.contacto);
     }
     const empresa = new empresa_entity_1.EmpresaEntity(req.params.id, body.name, body.nit, body.tipo, contacto);
@@ -56,13 +59,7 @@ exports.deleteEmpresa = (req, res) => __awaiter(void 0, void 0, void 0, function
         res.send(empresas);
     }
     catch (error) {
-        // If user already exists
-        if (error.code === postgres_errors_1.PG_FOREIGN_KEY_VIOLATION) {
-            res.json({ error: "La empresa ya se encuentra asociado a uno o varios empleados" });
-        }
-        else {
-            res.json({ error: error.code });
-        }
+        catch_1.default(error, res);
     }
 });
 //# sourceMappingURL=empresaController.js.map

@@ -2,7 +2,7 @@
   "name": "backend-node",
   "version": "1.0.0",
   "description": "",
-  "main": "dist/server.js",
+  "main": "dist/server/server.js",
   "scripts": {
     "build": "tsc",
     "prestart": "npm run build",

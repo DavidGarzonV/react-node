@@ -25,7 +25,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const autentication_1 = require("./../middlewares/autentication");
 const express_1 = __importDefault(require("express"));
 var router = express_1.default.Router();
-const authController = __importStar(require("../controllers/authController"));
+const authController = __importStar(require("../controllers/auth/authController"));
 router.post('/login', authController.login);
 router.post('/verify', [autentication_1.checkJwt], authController.verify);
 module.exports = router;

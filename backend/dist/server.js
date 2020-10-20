@@ -14,9 +14,6 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const body_parser_1 = __importDefault(require("body-parser"));
 const express_1 = __importDefault(require("express"));
-const user_entity_1 = require("./models/user/user.entity");
-const empresa_entity_1 = require("./models/empresa/empresa.entity");
-const empleado_entity_1 = require("./models/empleado/empleado.entity");
 const typeorm_1 = require("typeorm");
 var cors = require('cors');
 require('dotenv').config();
@@ -27,7 +24,7 @@ typeorm_1.createConnection({
     username: process.env.DB_USER,
     password: process.env.DB_PASS,
     database: process.env.DB_NAME,
-    entities: [empleado_entity_1.EmpleadoEntity, empresa_entity_1.EmpresaEntity, user_entity_1.UserEntity]
+    entities: [__dirname + '/entities/**/*.ts']
 }).then((conexion) => __awaiter(void 0, void 0, void 0, function* () {
     console.log("db connected");
     //Sincronize table configuration

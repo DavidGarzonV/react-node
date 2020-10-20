@@ -8,12 +8,15 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.deleteEmpleado = exports.updateEmpleado = exports.newEmpleado = exports.getEmpleadoById = exports.getAllEmpleados = void 0;
-const postgres_errors_1 = require("./../exports/postgres-errors");
-const empresa_repository_1 = require("./../models/empresa/empresa.repository");
-const empleado_entity_1 = require("../models/empleado/empleado.entity");
-const empleado_repository_1 = require("../models/empleado/empleado.repository");
+const empresa_repository_1 = require("./../repositories/empresa/empresa.repository");
+const empleado_repository_1 = require("../repositories/empleado/empleado.repository");
+const empleado_entity_1 = require("../entities/empleado/empleado.entity");
+const catch_1 = __importDefault(require("../exports/catch"));
 const repository = new empleado_repository_1.EmpleadoRepository();
 const empresaRepository = new empresa_repository_1.EmpresaRepository();
 exports.getAllEmpleados = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
@@ -21,7 +24,7 @@ exports.getAllEmpleados = (req, res) => __awaiter(void 0, void 0, void 0, functi
     res.send(result);
 });
 exports.getEmpleadoById = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    var result = yield repository.getEmpleadoById(req.body.id);
+    var result = yield repository.getEmpleadoById(req.params.id);
     if (result == undefined) {
         res.json({ error: "El empleado no existe" });
     }
@@ -41,20 +44,13 @@ exports.newEmpleado = (req, res) => __awaiter(void 0, void 0, void 0, function* 
         res.send(result);
     }
     catch (error) {
-        console.log(error.code);
-        // If user already exists
-        if (error.code === postgres_errors_1.PG_UNIQUE_VIOLATION) {
-            res.json({ error: "Error de llave unica" });
-        }
-        else {
-            res.json({ error: error.code });
-        }
+        catch_1.default(error, res);
     }
 });
 exports.updateEmpleado = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const body = req.body;
     var company = null;
-    if (body.company != "") {
+    if (body.company !== "" && body.company !== "") {
         company = yield empresaRepository.getEmpresaById(body.company);
     }
     const empleado = new empleado_entity_1.EmpleadoEntity(req.params.id, body.name, body.last_name, body.phone, body.email, company);
@@ -68,13 +64,7 @@ exports.deleteEmpleado = (req, res) => __awaiter(void 0, void 0, void 0, functio
         res.send(empleados);
     }
     catch (error) {
-        // If user already exists
-        if (error.code === postgres_errors_1.PG_FOREIGN_KEY_VIOLATION) {
-            res.json({ error: "El empleado ya se encuentra asociado a una o varias empresas" });
-        }
-        else {
-            res.json({ error: error.code });
-        }
+        catch_1.default(error, res);
     }
 });
 //# sourceMappingURL=empleadoController.js.map

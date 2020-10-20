@@ -3,7 +3,7 @@ import express from "express";
 
 var router = express.Router();
 
-import * as empleadoController from '../controllers/empleadoController';
+import * as empleadoController from '../controllers/empleado/empleadoController';
 
 // router.get('/', [checkJwt], empleadoController.getAllEmpleados);
 router.get('/', [checkJwt], empleadoController.getAllEmpleados);

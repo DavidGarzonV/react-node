@@ -1,12 +1,12 @@
 import React, { Component } from 'react'; // let's also import Component
+import Swal from 'sweetalert2';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlus } from '@fortawesome/free-solid-svg-icons'
 import { EmpleadoInt } from '../../interfaces/empleadoint';
-import { request } from '../../funciones';
+import { request } from '../../functions';
 import { NavLink } from 'react-router-dom';
 import { EMPLEADO_URL } from '../../constants';
-import Swal from 'sweetalert2';
-import IndexEmpleado from '../empleado/page';
+import IndexEmpleado from './page';
 
 // the clock's state has one field: The current time, based upon the
 // JavaScript class Date

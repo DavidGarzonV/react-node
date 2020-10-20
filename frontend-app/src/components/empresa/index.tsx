@@ -2,7 +2,7 @@ import React, { Component } from 'react'; // let's also import Component
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlus } from '@fortawesome/free-solid-svg-icons'
 import { EmpresaInt } from '../../interfaces/empresaint';
-import { request } from '../../funciones';
+import { request } from '../../functions';
 import { NavLink } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import { EMPRESA_URL } from '../../constants';
@@ -32,6 +32,7 @@ export class Empresa extends Component<Iprops, EmpresaState> {
 
         this.eliminarEmpresa = this.eliminarEmpresa.bind(this)
         this.deleteEmpresa = this.deleteEmpresa.bind(this)
+        this.load();
     }
 
     // The tick function sets the current state. TypeScript will let us know
@@ -49,15 +50,6 @@ export class Empresa extends Component<Iprops, EmpresaState> {
                 sinempresas: true
             });
         }
-    }
-
-    // Before the component mounts, we initialise our state
-    componentWillMount() {
-        this.setState({
-            empresas: [],
-            sinempresas: false
-        });
-        this.load();
     }
 
     async eliminarEmpresa(id: string) {

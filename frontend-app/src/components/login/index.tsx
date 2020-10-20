@@ -1,16 +1,22 @@
 import React, { Component } from 'react'; // let's also import Component
-import { RouteComponentProps } from 'react-router-dom';
-import { request } from '../../funciones';
+import { connect } from 'react-redux';
+import { request } from '../../functions';
+import loginAction from '../../store/actions/loginAction'
 import FormLogin from './page';
 
 type FormElement = React.FormEvent<HTMLFormElement>;
+
+interface IProps {
+    [key: string]: any,
+}
+
 type StateLogin = {
     [key: string]: any
 }
 
-export class Login extends Component<RouteComponentProps, StateLogin> {
+class Login extends Component<IProps, StateLogin> {
 
-    constructor(props: RouteComponentProps) {
+    constructor(props: IProps) {
         super(props);
         this.state = {
             error: false,
@@ -19,10 +25,10 @@ export class Login extends Component<RouteComponentProps, StateLogin> {
             user: '',
             pass: ''
         }
-        this.handleChange = this.handleChange.bind(this)
-        this.handleSubmit = this.handleSubmit.bind(this)
-    }
 
+        this.handleChange = this.handleChange.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
+    }
 
     handleChange = (e: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLSelectElement>) => {
         this.setState({ [e.target.name]: e.target.value });
@@ -32,7 +38,6 @@ export class Login extends Component<RouteComponentProps, StateLogin> {
         e.preventDefault();
 
         const { user, pass } = this.state;
-        console.log(user, pass);
 
         let response = await request("/auth/login", "post", { user, pass });
 
@@ -46,7 +51,9 @@ export class Login extends Component<RouteComponentProps, StateLogin> {
                     this.setState({ loginError: false });
                     //DO LOGIN
                     localStorage.setItem("token", response.data.access_token);
-                    this.props.history.replace('/');
+                    this.props.loginAction(true);
+                    // this.props.history.replace("/");
+                    this.props.history.replace("/");
                 }
             }
         } else {
@@ -56,7 +63,7 @@ export class Login extends Component<RouteComponentProps, StateLogin> {
 
     render() {
         return (
-            <FormLogin 
+            <FormLogin
                 message={this.state.message}
                 loginError={this.state.loginError}
                 error={this.state.error}
@@ -66,3 +73,16 @@ export class Login extends Component<RouteComponentProps, StateLogin> {
         )
     }
 }
+
+const mapStateToProps = (state: any) => {
+    return {
+        isLogged: state.login
+    }
+}
+
+const mapDispatchToProps = {
+    loginAction,
+}
+
+// export default App;
+export default connect(mapStateToProps, mapDispatchToProps)(Login);

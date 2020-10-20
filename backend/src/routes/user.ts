@@ -1,6 +1,6 @@
 import express from "express";
 var router = express.Router();
-import * as userController from '../controllers/userController';
+import * as userController from '../controllers/user/userController';
 import { checkJwt } from './../middlewares/autentication';
 
 

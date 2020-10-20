@@ -1,11 +1,11 @@
 import React from 'react'; // let's also import Component
-import { request } from '../../funciones';
+import { request } from '../../functions';
 import { EmpleadoInt } from '../../interfaces/empleadoint';
 import Swal from 'sweetalert2';
 import { EMPLEADO_URL, EMPRESA_URL } from '../../constants';
 import { EmpresaInt } from '../../interfaces/empresaint';
 import FormEdit from './page';
-import ComboBox from '../form/autocomplete';
+import ComboBox from '../Form/autocomplete';
 
 type FormElement = React.FormEvent<HTMLFormElement>;
 
@@ -65,7 +65,7 @@ class EmpleadoEdit extends React.Component<EmpleadoInt, EmpleadoState> {
         e.preventDefault();
         //Remove id from state
         let { id, empleados, ...data } = this.state;
-        if (data.company?.value != undefined) {
+        if (data.company?.value !== undefined) {
             data.company = data.company.value;
         }
 
