@@ -5,6 +5,7 @@ $redDanger: #ff070726;
 $red: #ae5252;
 $success: #b7d177bf;
 $blackThin: #495057;
+$grey2: #ced4da;
 
 body,
 html {
@@ -15,33 +16,6 @@ html {
 #root {
     height: calc(100% - 5%);
     padding-top: 25px;
-}
-ul.horizontal {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-    overflow: hidden;
-    background-color: #333;
-    width: 100%;
-    position: absolute;
-    top: 0;
-    left: 0;
-}
-
-ul.horizontal a, .cerrarSesion button {
-    display: inline-block;
-    color: $white;
-    text-align: center;
-    padding: 14px 16px;
-    text-decoration: none;
-}
-
-ul.horizontal a:hover:not(.active) , .cerrarSesion button:hover{
-    background-color: #000;
-}
-
-ul.horizontal a.active {
-    background-color: $green;
 }
 
 .container {
@@ -61,51 +35,17 @@ a.button {
     display: block;
 }
 
+a {
+    cursor: pointer;
+}
+
+a.button svg {
+    margin-right: 5px;
+}
+
 a.button:hover {
     background-color: #3333338c;
 }
-.homebuttons {
-    text-align: center;
-}
-.homebuttons a {
-    display: inline-block;
-    margin: 0 5px;
-}
-
-label {
-    display: block;
-}
-
-input:not([type="submit"]):not(.MuiAutocomplete-input) {
-    height: 35px;
-    display: block;
-    width: 100%;
-    font-size: 1rem;
-    font-weight: 400;
-    line-height: 1.5;
-    color: $blackThin;
-    background-color: $white;
-    border: 1px solid #ced4da;
-    border-radius: 0.25rem;
-    box-sizing: border-box;
-    padding: 10px;
-}
-
-select {
-    height: 45px;
-    width: 100%;
-    font-size: 1rem;
-    font-weight: 400;
-    line-height: 1.5;
-    color: $blackThin;
-    background-color: $white;
-    background-clip: padding-box;
-    border: 1px solid #ced4da;
-    border-radius: 0.25rem;
-    box-sizing: border-box;
-    padding: 10px;
-}
-
 .saveButton {
     border-radius: 10px;
     color: $white;
@@ -145,33 +85,38 @@ td {
     text-align: right;
 }
 
-a {
-    cursor: pointer;
+label {
+    display: block;
 }
 
-.buttonlist a {
-    float: right;
-    margin-bottom: 10px;
-}
-
-a.button svg {
-    margin-right: 5px;
-}
-
-// Login
-
-.loginform {
-    max-width: 600px;
-    margin: 0 auto;
+input:not([type="submit"]):not(.MuiAutocomplete-input) {
+    height: 35px;
+    display: block;
+    width: 100%;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: $blackThin;
     background-color: $white;
-    padding: 30px;
-    border-radius: 18px;
+    border: 1px solid $grey2;
+    border-radius: 0.25rem;
+    box-sizing: border-box;
+    padding: 10px;
 }
-.indexcont {
-    padding: 30px;
-    border-radius: 18px;
-    overflow: auto;
+
+select {
+    height: 45px;
+    width: 100%;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: $blackThin;
     background-color: $white;
+    background-clip: padding-box;
+    border: 1px solid $grey2;
+    border-radius: 0.25rem;
+    box-sizing: border-box;
+    padding: 10px;
 }
 
 .alertMessage .alert {
@@ -193,11 +138,80 @@ p.alertMessage {
     background-color: $success;
 }
 
+.MuiAutocomplete-root {
+    margin-top: 10px;
+    width: 100% !important;
+}
+
+//Header
+ul.horizontal {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #333;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+ul.horizontal a,
+.cerrarSesion button {
+    display: inline-block;
+    color: $white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+ul.horizontal a:hover:not(.active),
+.cerrarSesion button:hover {
+    background-color: #000;
+}
+
+ul.horizontal a.active {
+    background-color: $green;
+}
+
 .cerrarSesion {
     float: right;
 }
 
-.MuiAutocomplete-root {
-    margin-top: 10px;
-    width: 100% !important;
+//Home
+
+.homebuttons {
+    text-align: center;
+}
+.homebuttons a {
+    display: inline-block;
+    margin: 0 5px;
+}
+.buttonlist {
+    position: relative;
+}
+
+.buttonlist a {
+    position: absolute;
+    right: 0;
+    top: -60px;
+}
+
+// Login
+.loginform {
+    max-width: 600px;
+    margin: 0 auto;
+    background-color: $white;
+    padding: 30px;
+    border-radius: 18px;
+}
+
+//Pages
+.indexcont {
+    padding: 30px;
+    border-radius: 18px;
+    overflow: auto;
+    background-color: $white;
+    width: 80%;
+    margin: 0 auto;
 }

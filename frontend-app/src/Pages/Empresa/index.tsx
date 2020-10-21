@@ -27,7 +27,7 @@ class Empresa extends Component<Iprops, EmpresaState> {
 
         this.state = {
             empresas: [],
-            sinempresas: true
+            sinempresas: false
         }
 
         this.eliminarEmpresa = this.eliminarEmpresa.bind(this)
