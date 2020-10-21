@@ -1,16 +1,19 @@
 import React from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import { NavLink } from "react-router-dom";
 import loginAction from "../../store/actions/loginAction";
 
-
-const logout = (event: React.MouseEvent, dispatch: any) => {
+const logout = (dispatch: any) => {
     localStorage.removeItem("token");
     dispatch(loginAction(true));
 }
 
 const Header = () => {
+
+    //For dispatch actions store
     const dispatch = useDispatch();
+
+    //For get store state
     // const isLogin = useSelector((state: any) => state.login.isLogin);
 
     return (
@@ -20,9 +23,9 @@ const Header = () => {
             <NavLink exact={true} activeClassName='active' to='/empleado'>Empleados</NavLink>
 
             <div className="cerrarSesion">
-                <a href="/#" onClick={event => logout(event, dispatch)}>
+                <a href="/#" onClick={event => logout(dispatch)}>
                     Cerrar sesion
-                    </a>
+                </a>
             </div>
         </ul>
     )

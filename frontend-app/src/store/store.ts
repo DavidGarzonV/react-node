@@ -6,6 +6,10 @@ const reducer = combineReducers({
     login
 })
 
-const store = createStore(reducer);
+/* eslint-disable no-underscore-dangle */
+const store = createStore(
+    reducer
+);
+/* eslint-enable */
 
 export default store;

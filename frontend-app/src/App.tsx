@@ -15,11 +15,11 @@ interface IProps {
 const App = ({ isLogin,loginAction }: IProps) => {
     let token = localStorage.getItem("token");
 
-    console.log(isLogin);
-
     if (isLogin === false && token !== undefined && token !== null) {
         loginAction(true);
     }
+
+    console.log("app", isLogin);
 
     return (
         <Fragment>

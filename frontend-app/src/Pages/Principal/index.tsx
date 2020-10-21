@@ -18,8 +18,8 @@ const Principal = () => {
                 </NavLink>
                 <NavLink exact={true} className='button' to='/empleado/edit'>
                     <FontAwesomeIcon icon={faPlus} />
-                Crear empleado
-            </NavLink>
+                    Crear empleado
+                </NavLink>
             </div>
         </div>
     )
