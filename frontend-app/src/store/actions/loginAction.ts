@@ -1,9 +1,9 @@
 export const type = 'loginAction';
 
-const loginAction = (isLogged: boolean) => {
+const loginAction = (isLogin: boolean) => {
     return{
         type,
-        payload: isLogged
+        payload: isLogin
     }
 }
 

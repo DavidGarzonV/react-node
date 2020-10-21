@@ -1,8 +1,8 @@
 import React, { Component } from 'react'; // let's also import Component
+import FormLogin from './page';
+import loginAction from '../../store/actions/loginAction'
 import { connect } from 'react-redux';
 import { request } from '../../functions';
-import loginAction from '../../store/actions/loginAction'
-import FormLogin from './page';
 
 type FormElement = React.FormEvent<HTMLFormElement>;
 
@@ -49,11 +49,10 @@ class Login extends Component<IProps, StateLogin> {
                     this.setState({ loginError: true });
                 } else {
                     this.setState({ loginError: false });
+
                     //DO LOGIN
                     localStorage.setItem("token", response.data.access_token);
                     this.props.loginAction(true);
-                    // this.props.history.replace("/");
-                    this.props.history.replace("/");
                 }
             }
         } else {
@@ -74,15 +73,9 @@ class Login extends Component<IProps, StateLogin> {
     }
 }
 
-const mapStateToProps = (state: any) => {
-    return {
-        isLogged: state.login
-    }
-}
-
 const mapDispatchToProps = {
     loginAction,
 }
 
 // export default App;
-export default connect(mapStateToProps, mapDispatchToProps)(Login);
+export default connect(null, mapDispatchToProps)(Login);

@@ -4,8 +4,8 @@ import { EmpresaInt } from '../../interfaces/empresaint';
 import Swal from 'sweetalert2';
 import { EMPLEADO_URL, EMPRESA_URL } from '../../constants';
 import { EmpleadoInt } from '../../interfaces/empleadoint';
-import ComboBox from '../Form/autocomplete';
-import FormEdit from '../EmpresaEdit/page';
+import ComboBox from '../../components/Form/autocomplete';
+import FormEdit from './page';
 
 type AutocompleteOption = {
     label: string,

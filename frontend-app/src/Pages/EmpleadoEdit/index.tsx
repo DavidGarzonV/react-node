@@ -5,7 +5,7 @@ import Swal from 'sweetalert2';
 import { EMPLEADO_URL, EMPRESA_URL } from '../../constants';
 import { EmpresaInt } from '../../interfaces/empresaint';
 import FormEdit from './page';
-import ComboBox from '../Form/autocomplete';
+import ComboBox from '../../components/Form/autocomplete';
 
 type FormElement = React.FormEvent<HTMLFormElement>;
 

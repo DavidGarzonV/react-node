@@ -1,26 +1,29 @@
-import React, { Component } from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faPlus } from '@fortawesome/free-solid-svg-icons'
-import { NavLink } from 'react-router-dom';
+import React from 'react';
+import { Route, Switch } from 'react-router-dom';
+import Empleado from '../../Pages/Empleado';
+import Empresa from '../../Pages/Empresa';
+import EmpleadoEdit from '../../Pages/EmpleadoEdit';
+import EmpresaEdit from '../../Pages/EmpresaEdit';
+import Header from '../Header';
+import Principal from '../../Pages/Principal';
+import Login from '../../Pages/Login';
 
-export class Home extends Component {   
-    render() {
-        return (
-            <div className="loginform">
-                <div className="text-center">
-                    <h1>Bienvenido</h1>
-                </div>
-                <div className="homebuttons">
-                    <NavLink exact={true} className='button' to='/empresa/edit'>
-                        <FontAwesomeIcon icon={faPlus} />
-                        Crear empresa
-                    </NavLink>
-                    <NavLink exact={true} className='button' to='/empleado/edit'>
-                        <FontAwesomeIcon icon={faPlus} />
-                        Crear empleado
-                    </NavLink>
-                </div>
-            </div>
-        )
-    }
+const Home = () => {
+    return (
+        <div>
+            <Header />
+            <Switch>
+                <Route exact path="/" component={Principal} />
+                <Route exact path="/login" component={Login} />
+                <Route exact path="/empleado" component={Empleado} />
+                <Route exact path="/empleado/edit" component={EmpleadoEdit} />
+                <Route exact path="/empleado/edit/:id" component={EmpleadoEdit} />
+                <Route exact path="/empresa" component={Empresa} />
+                <Route exact path="/empresa/edit" component={EmpresaEdit} />
+                <Route exact path="/empresa/edit/:id" component={EmpresaEdit} />
+            </Switch>
+        </div>
+    )
 }
+
+export default Home;

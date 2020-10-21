@@ -1,75 +1,79 @@
 import React, { Component } from 'react'; // let's also import Component
+import Swal from 'sweetalert2';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlus } from '@fortawesome/free-solid-svg-icons'
-import { EmpresaInt } from '../../interfaces/empresaint';
+import { EmpleadoInt } from '../../interfaces/empleadoint';
 import { request } from '../../functions';
 import { NavLink } from 'react-router-dom';
-import Swal from 'sweetalert2';
-import { EMPRESA_URL } from '../../constants';
-import IndexEmpresa from './page';
+import { EMPLEADO_URL } from '../../constants';
+import IndexEmpleado from './page';
 
 // the clock's state has one field: The current time, based upon the
 // JavaScript class Date
+
 type Iprops = {}
 
-type EmpresaState = {
-    empresas: EmpresaInt[],
-    sinempresas: boolean
+type EmpleadoState = {
+    empleados: Array<EmpleadoInt>,
+    sinempleados: boolean
 }
 
-// Clock has no properties, but the current state is of type EmpresaState
+
+// Clock has no properties, but the current state is of type EmpleadoState
 // The generic parameters in the Component typing allow to pass props
 // and state. Since we don't have props, we pass an empty object.
-export class Empresa extends Component<Iprops, EmpresaState> {
+class Empleado extends Component<Iprops, EmpleadoState> {
 
     constructor(props: Iprops) {
         super(props);
-
         this.state = {
-            empresas: [],
-            sinempresas: true
+            empleados: [],
+            sinempleados: false
         }
 
-        this.eliminarEmpresa = this.eliminarEmpresa.bind(this)
-        this.deleteEmpresa = this.deleteEmpresa.bind(this)
+        this.eliminarEmpleado = this.eliminarEmpleado.bind(this)
+        this.deleteEmpleado = this.deleteEmpleado.bind(this)
         this.load();
-    }
 
+    }
     // The tick function sets the current state. TypeScript will let us know
     // which ones we are allowed to set.
     async load() {
-        let response = await request(EMPRESA_URL, "get");
+
+        let response = await request(EMPLEADO_URL, "get");
+
         if (response !== false) {
             this.setState({
-                empresas: response.data,
-                sinempresas: response.data.length === 0
+                empleados: response.data,
+                sinempleados: response.data.length === 0
             });
         } else {
             this.setState({
-                empresas: [],
-                sinempresas: true
+                empleados: [],
+                sinempleados: true
             });
         }
     }
 
-    async eliminarEmpresa(id: string) {
-        let response = await request(EMPRESA_URL + '/' + id, "delete");
+    async eliminarEmpleado(id: string) {
+        let response = await request(EMPLEADO_URL + '/' + id, "delete");
         if (response !== false) {
+
             if (response.data.error) {
                 Swal.fire("Error", response.data.error, "error");
             } else {
                 this.setState({
-                    empresas: response.data,
-                    sinempresas: response.data.length === 0
+                    empleados: response.data,
+                    sinempleados: response.data.length === 0
                 });
-                Swal.fire("Operación exitosa", "Empresa eliminada correctamente", "success");
+                Swal.fire("Operación exitosa", "Empleado eliminado correctamente", "success");
             }
         } else {
             alert("Error al eliminar");
         }
     }
 
-    async deleteEmpresa(event: React.MouseEvent, id: string) {
+    async deleteEmpleado(event: React.MouseEvent, id: string) {
         event.preventDefault();
 
         Swal.fire({
@@ -81,37 +85,37 @@ export class Empresa extends Component<Iprops, EmpresaState> {
         })
             .then((result) => {
                 if (result.isConfirmed) {
-                    this.eliminarEmpresa(id);
+                    this.eliminarEmpleado(id);
                 }
             });
     }
 
     // render will know everything!
     render() {
-        if (this.state.empresas.length > 0) {
+        if (this.state.empleados.length > 0) {
             return (
-                <IndexEmpresa
-                    empresas={this.state.empresas}
-                    deleteEmpresa={this.deleteEmpresa}
+                <IndexEmpleado
+                    empleados={this.state.empleados}
+                    deleteEmpleado={this.deleteEmpleado}
                 />
             );
         } else {
-            if (this.state.sinempresas) {
+            if (this.state.sinempleados) {
                 return (
                     <div className="indexcont">
                         <div className="buttonlist">
-                            <NavLink exact={true} className='button' to='/empresa/edit'>
+                            <NavLink exact={true} className='button' to='/empleado/edit'>
                                 <FontAwesomeIcon icon={faPlus} />
-                                Crear empresa
+                                Crear empleado
                             </NavLink>
                         </div>
-                        <p className="text-center">Sin empresas.</p>
+                        <p className="text-center">Sin empleados.</p>
                     </div>
                 );
             } else {
                 return (
                     <div className="indexcont">
-                        <p className="text-center">Cargando empresas...</p>
+                        <p className="text-center">Cargando empleados...</p>
                     </div>
                 );
             }
@@ -119,3 +123,5 @@ export class Empresa extends Component<Iprops, EmpresaState> {
         // return <p>The current time is {this.state.time.toLocaleTimeString()}</p>
     }
 }
+
+export default Empleado;

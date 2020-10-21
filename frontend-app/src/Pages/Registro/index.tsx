@@ -11,7 +11,7 @@ type StateRegistro = {
     message: string
 }
 
-export class Registro extends Component<RouteComponentProps, StateRegistro> {
+class Registro extends Component<RouteComponentProps, StateRegistro> {
 
     constructor(props: RouteComponentProps) {
         super(props);
@@ -40,7 +40,7 @@ export class Registro extends Component<RouteComponentProps, StateRegistro> {
                 // window.location.href = "/login";
                 Swal.fire("Operación exitosa", "Registro exitoso", "success");
                 this.setState({ error: false });
-                this.props.history.replace('/login')
+                this.props.history.replace('/')
             }
         } else {
             this.setState({ error: true });
@@ -58,3 +58,5 @@ export class Registro extends Component<RouteComponentProps, StateRegistro> {
         )
     }
 }
+
+export default Registro;

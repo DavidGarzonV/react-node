@@ -1,6 +1,6 @@
 import React from 'react'; // let's also import Component
 import { NavLink } from 'react-router-dom';
-import { Alert } from '../Alert';
+import { Alert } from '../../components/Alert';
 
 type FormProps = {
     message: string,
