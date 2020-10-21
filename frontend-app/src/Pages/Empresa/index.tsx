@@ -39,7 +39,7 @@ class Empresa extends Component<Iprops, EmpresaState> {
     // which ones we are allowed to set.
     async load() {
         let response = await request(EMPRESA_URL, "get");
-        if (response !== false) {
+        if (response.status !== false) {
             this.setState({
                 empresas: response.data,
                 sinempresas: response.data.length === 0
@@ -54,7 +54,7 @@ class Empresa extends Component<Iprops, EmpresaState> {
 
     async eliminarEmpresa(id: string) {
         let response = await request(EMPRESA_URL + '/' + id, "delete");
-        if (response !== false) {
+        if (response.status !== false) {
             if (response.data.error) {
                 Swal.fire("Error", response.data.error, "error");
             } else {
@@ -79,11 +79,11 @@ class Empresa extends Component<Iprops, EmpresaState> {
             cancelButtonText: 'Cancelar',
             icon: 'warning',
         })
-            .then((result) => {
-                if (result.isConfirmed) {
-                    this.eliminarEmpresa(id);
-                }
-            });
+        .then((result) => {
+            if (result.isConfirmed) {
+                this.eliminarEmpresa(id);
+            }
+        });
     }
 
     // render will know everything!
@@ -99,6 +99,7 @@ class Empresa extends Component<Iprops, EmpresaState> {
             if (this.state.sinempresas) {
                 return (
                     <div className="indexcont">
+                        <h1>Listado de Empresas</h1>
                         <div className="buttonlist">
                             <NavLink exact={true} className='button' to='/empresa/edit'>
                                 <FontAwesomeIcon icon={faPlus} />

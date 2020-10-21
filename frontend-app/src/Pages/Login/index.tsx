@@ -1,6 +1,6 @@
 import React, { Component } from 'react'; // let's also import Component
 import FormLogin from './page';
-import loginAction from '../../store/actions/loginAction'
+import { validating } from '../../store/actions/validateLogin';
 import { connect } from 'react-redux';
 import { request } from '../../functions';
 
@@ -52,7 +52,7 @@ class Login extends Component<IProps, StateLogin> {
 
                     //DO LOGIN
                     localStorage.setItem("token", response.data.access_token);
-                    this.props.loginAction(true);
+                    this.props.validating();
                 }
             }
         } else {
@@ -74,7 +74,7 @@ class Login extends Component<IProps, StateLogin> {
 }
 
 const mapDispatchToProps = {
-    loginAction,
+    validating,
 }
 
 // export default App;

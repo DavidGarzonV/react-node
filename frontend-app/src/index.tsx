@@ -3,8 +3,10 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
-import store from './store/store';
 import { Provider } from 'react-redux';
+import getStore from './store/getStore';
+
+const { store } = getStore();
 
 const Root = (
   <Provider store={store}>

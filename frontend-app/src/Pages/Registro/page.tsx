@@ -39,7 +39,7 @@ const FormRegistro = (props: IProps) => {
                 </form>
             </div>
             <div className="text-right">
-                <NavLink exact={true} to='/login'>
+                <NavLink exact={true} to='/'>
                     Iniciar sesión
                 </NavLink>
             </div>

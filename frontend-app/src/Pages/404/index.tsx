@@ -1,17 +1,17 @@
 import React from 'react';
 import { withRouter } from 'react-router';
 
-const NoMatch = ({ history }: any) => {
+const NotFound = ({ history }: any) => {
     return (
         <div className="container">
             <div className="loginform">
-                <h1>401</h1>
-                <h2>No tiene acceso a esta página</h2>
-                <p>Ir al <a href="/#" onClick={() => history.push('/')}>login</a></p>
+                <h1>404</h1>
+                <h2>Página no encontrada</h2>
+                <p>Ir al <a href="/#" onClick={() => history.push('/')}>inicio</a></p>
             </div>
         </div>
     )
 
 }
 
-export default withRouter(NoMatch);
+export default withRouter(NotFound);

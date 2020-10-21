@@ -1,40 +1,52 @@
-import React, { Fragment } from 'react';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import React, { Fragment, useEffect } from 'react';
+import { BrowserRouter, Route, Switch, useLocation, withRouter } from 'react-router-dom';
 import Home from './components/Home';
 import Login from './Pages/Login';
-import { connect } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import './styles.scss';
-import NoMatch from './Pages/404';
-import loginAction from './store/actions/loginAction';
+import NotAutorized from './Pages/401';
+//For login validating
+import { validating } from './store/actions/validateLogin';
 import Registro from './Pages/Registro';
 
-interface IProps {
-    [key: string]: any,
-}
+const App = (props: any) => {
 
-const App = ({ isLogin,loginAction }: IProps) => {
-    let token = localStorage.getItem("token");
+    //For dispatch actions store
+    const dispatch = useDispatch();
 
-    if (isLogin === false && token !== undefined && token !== null) {
-        loginAction(true);
-    }
+    //For get store state
+    const { isLogin, isLoading } = useSelector((state: any) => {
+        return {
+            isLogin: state.validateLogin.status, isLoading: state.validateLogin.isLoading
+        }
+    });
 
-    console.log("app", isLogin);
+    // De forma similar a componentDidMount y componentDidUpdate
+    // useEffect
+    useEffect(() => {
+        dispatch(validating())
+        //On [element] state change, useEffect
+    }, [dispatch])
 
     return (
         <Fragment>
             <div className="container">
+                {isLoading &&
+                    <div>Cargando...</div>
+                }
                 <BrowserRouter>
                     <Switch>
                         {isLogin ? (
                             <Route path="/" component={Home} />
                         ) : (
-                            <Route exact path="/" component={Login} />
-                        )}
+                                <Route exact path="/" component={Login} />
+                            )}
                         <Route exact path="/register" component={Registro} />
-                        <Route>
-                            <NoMatch />
-                        </Route>
+                        {!isLoading &&
+                            <Route>
+                                <NotAutorized />
+                            </Route>
+                        }
                     </Switch>
                 </BrowserRouter>
             </div>
@@ -42,14 +54,4 @@ const App = ({ isLogin,loginAction }: IProps) => {
     );
 }
 
-const mapStateToProps = ({ login: isLogin }: any) => {
-    return isLogin
-}
-
-const mapDispatchToProps = {
-    loginAction,
-}
-
-
-// export default App;
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default App;

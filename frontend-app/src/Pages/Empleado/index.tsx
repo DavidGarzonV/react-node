@@ -1,4 +1,4 @@
-import React, { Component } from 'react'; // let's also import Component
+import React, { Component, useEffect } from 'react'; // let's also import Component
 import Swal from 'sweetalert2';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlus } from '@fortawesome/free-solid-svg-icons'
@@ -34,15 +34,15 @@ class Empleado extends Component<Iprops, EmpleadoState> {
         this.eliminarEmpleado = this.eliminarEmpleado.bind(this)
         this.deleteEmpleado = this.deleteEmpleado.bind(this)
         this.load();
-
     }
+
     // The tick function sets the current state. TypeScript will let us know
     // which ones we are allowed to set.
     async load() {
 
         let response = await request(EMPLEADO_URL, "get");
 
-        if (response !== false) {
+        if (response.status !== false) {
             this.setState({
                 empleados: response.data,
                 sinempleados: response.data.length === 0
@@ -57,7 +57,7 @@ class Empleado extends Component<Iprops, EmpleadoState> {
 
     async eliminarEmpleado(id: string) {
         let response = await request(EMPLEADO_URL + '/' + id, "delete");
-        if (response !== false) {
+        if (response.status !== false) {
 
             if (response.data.error) {
                 Swal.fire("Error", response.data.error, "error");
@@ -103,6 +103,7 @@ class Empleado extends Component<Iprops, EmpleadoState> {
             if (this.state.sinempleados) {
                 return (
                     <div className="indexcont">
+                        <h1>Listado de Empleados</h1>
                         <div className="buttonlist">
                             <NavLink exact={true} className='button' to='/empleado/edit'>
                                 <FontAwesomeIcon icon={faPlus} />
