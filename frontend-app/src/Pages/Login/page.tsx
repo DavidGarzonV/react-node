@@ -1,6 +1,8 @@
 import React from 'react'; // let's also import Component
 import { NavLink } from 'react-router-dom';
 import { Alert } from '../../components/Alert';
+// import node from '../../images/node.png'; // Tell webpack this JS file uses this image
+import react from '../../images/react.png'; // Tell webpack this JS file uses this image
 
 type FormProps = {
     message: string,
@@ -22,7 +24,15 @@ const FormLogin = (props: FormProps) => {
                 <Alert type="error" message="Las credenciales no coinciden" />
             }
             <div>
-                <h1>Iniciar sesión</h1>
+                <div className="imageContainer">
+                    {/* <div>
+                        <img src={node} alt="Node JS"/>
+                    </div> */}
+                    <div>
+                        <img src={react} alt="React JS"/>
+                    </div>
+                </div>
+                <h1 style={{textAlign:"center"}}>Iniciar sesión</h1>
             </div>
             <div>
                 <form onSubmit={props.handleSubmit}>

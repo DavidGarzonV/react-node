@@ -15,7 +15,8 @@ export const validateSuccess = (status: boolean) => {
 		payload: status
 	}
 }
- const validateFailed = (failed: boolean) => {
+
+export const validateFailed = (failed: boolean) => {
 	return {
 		type: validateFailedType,
 		payload: failed

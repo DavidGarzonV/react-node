@@ -1,6 +1,6 @@
 import { validateSession } from './../../../functions/index';
 import { validateSuccessType, validateFailedType } from './../../actions/validateLogin';
-import { call, put } from "redux-saga/effects";
+import { put } from "redux-saga/effects";
 
 export default function* validateLogin(){
 	try {

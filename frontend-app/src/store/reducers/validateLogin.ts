@@ -3,9 +3,11 @@ import { Action } from './../../interfaces/action';
 
 const defaultState = {
 	status: false,
-	isLoading: false
+	isLoading: false,
+	failed: false
 };
 
+//Reducer for saga auth
 const reducer = (state = defaultState, { type, payload }: Action) => {
 	switch (type) {
 		case validateSuccessType: {
@@ -13,6 +15,9 @@ const reducer = (state = defaultState, { type, payload }: Action) => {
 		}
 		case validatingType: {
 			return { ...state, isLoading: true };
+		}
+		case validateFailedType: {
+			return { ...state, failed: true, isLoading: false };
 		}
 		default:
 			return state;

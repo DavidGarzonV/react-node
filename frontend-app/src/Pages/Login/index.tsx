@@ -62,13 +62,15 @@ class Login extends Component<IProps, StateLogin> {
 
     render() {
         return (
-            <FormLogin
-                message={this.state.message}
-                loginError={this.state.loginError}
-                error={this.state.error}
-                handleSubmit={this.handleSubmit}
-                handleChange={this.handleChange}
-            />
+            <div>
+                <FormLogin
+                    message={this.state.message}
+                    loginError={this.state.loginError}
+                    error={this.state.error}
+                    handleSubmit={this.handleSubmit}
+                    handleChange={this.handleChange}
+                />
+            </div>
         )
     }
 }

@@ -1,14 +1,18 @@
 import React from "react";
 import { useDispatch } from "react-redux";
-import { NavLink } from "react-router-dom";
+import { NavLink, useHistory } from "react-router-dom";
 import { validating } from '../../store/actions/validateLogin';
 
-const logout = (dispatch: any) => {
+const logout = (event:  React.MouseEvent,dispatch: any, history: any) => {
+    event.preventDefault()
     localStorage.removeItem("token");
     dispatch(validating());
+    history.replace("/");
 }
 
 const Header = () => {
+
+    const history  = useHistory();
 
     //For dispatch actions store
     const dispatch = useDispatch();
@@ -20,7 +24,7 @@ const Header = () => {
             <NavLink exact={true} activeClassName='active' to='/empleado'>Empleados</NavLink>
 
             <div className="cerrarSesion">
-                <a href="/#" onClick={event => logout(dispatch)}>
+                <a href="/" onClick={event => logout(event, dispatch, history)}>
                     Cerrar sesion
                 </a>
             </div>
