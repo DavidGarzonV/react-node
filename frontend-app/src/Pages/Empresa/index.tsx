@@ -7,10 +7,14 @@ import { NavLink } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import { EMPRESA_URL } from '../../constants';
 import IndexEmpresa from './page';
+import loadingAction from '../../store/actions/loadingAction';
+import { connect } from 'react-redux';
 
 // the clock's state has one field: The current time, based upon the
 // JavaScript class Date
-type Iprops = {}
+type Iprops = {
+    [key: string]: any
+}
 
 type EmpresaState = {
     empresas: EmpresaInt[],
@@ -38,6 +42,8 @@ class Empresa extends Component<Iprops, EmpresaState> {
     // The tick function sets the current state. TypeScript will let us know
     // which ones we are allowed to set.
     async load() {
+        this.props.loadingAction(true);
+
         let response = await request(EMPRESA_URL, "get");
         if (response.status !== false) {
             this.setState({
@@ -50,10 +56,13 @@ class Empresa extends Component<Iprops, EmpresaState> {
                 sinempresas: true
             });
         }
+        this.props.loadingAction(false);
     }
 
     async eliminarEmpresa(id: string) {
+        this.props.loadingAction(true);
         let response = await request(EMPRESA_URL + '/' + id, "delete");
+        this.props.loadingAction(false);
         if (response.status !== false) {
             if (response.data.error) {
                 Swal.fire("Error", response.data.error, "error");
@@ -88,36 +97,32 @@ class Empresa extends Component<Iprops, EmpresaState> {
 
     // render will know everything!
     render() {
-        if (this.state.empresas.length > 0) {
-            return (
+
+        return (
+            !this.state.sinempresas
+                ?
                 <IndexEmpresa
                     empresas={this.state.empresas}
                     deleteEmpresa={this.deleteEmpresa}
                 />
-            );
-        } else {
-            if (this.state.sinempresas) {
-                return (
-                    <div className="indexcont">
-                        <h1>Listado de Empresas</h1>
-                        <div className="buttonlist">
-                            <NavLink exact={true} className='button' to='/empresa/edit'>
-                                <FontAwesomeIcon icon={faPlus} />
-                                Crear empresa
-                            </NavLink>
-                        </div>
-                        <p className="text-center">Sin empresas.</p>
+                :
+                <div className="indexcont">
+                    <h1>Listado de Empresas</h1>
+                    <div className="buttonlist">
+                        <NavLink exact={true} className='button' to='/empresa/edit'>
+                            <FontAwesomeIcon icon={faPlus} />
+                            Crear empresa
+                        </NavLink>
                     </div>
-                );
-            } else {
-                return (
-                    <div className="indexcont">
-                        <p className="text-center">Cargando empresas...</p>
-                    </div>
-                );
-            }
-        }
-        // return <p>The current time is {this.state.time.toLocaleTimeString()}</p>
+                    <p className="text-center">Sin empresas.</p>
+                </div>
+        )
     }
 }
-export default Empresa;
+
+const mapDispatchToProps = {
+    loadingAction,
+}
+
+export default connect(null, mapDispatchToProps)(Empresa);
+// export default Empresa;

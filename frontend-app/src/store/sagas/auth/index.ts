@@ -7,7 +7,6 @@ export default function* validateLogin(){
 		//consume API
 		//yield, await promise
 		const response = yield validateSession();
-		console.log(response)
 
 		//dispatch success action
 		yield put({type: validateSuccessType, payload: response.status});

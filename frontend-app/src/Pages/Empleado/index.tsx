@@ -1,4 +1,4 @@
-import React, { Component, useEffect } from 'react'; // let's also import Component
+import React, { Component } from 'react'; // let's also import Component
 import Swal from 'sweetalert2';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlus } from '@fortawesome/free-solid-svg-icons'
@@ -7,11 +7,16 @@ import { request } from '../../functions';
 import { NavLink } from 'react-router-dom';
 import { EMPLEADO_URL } from '../../constants';
 import IndexEmpleado from './page';
+import loadingAction from '../../store/actions/loadingAction';
+import { connect } from 'react-redux';
+
 
 // the clock's state has one field: The current time, based upon the
 // JavaScript class Date
 
-type Iprops = {}
+type Iprops = {
+    [key: string]: any
+}
 
 type EmpleadoState = {
     empleados: Array<EmpleadoInt>,
@@ -40,6 +45,8 @@ class Empleado extends Component<Iprops, EmpleadoState> {
     // which ones we are allowed to set.
     async load() {
 
+        this.props.loadingAction(true);
+
         let response = await request(EMPLEADO_URL, "get");
 
         if (response.status !== false) {
@@ -53,10 +60,13 @@ class Empleado extends Component<Iprops, EmpleadoState> {
                 sinempleados: true
             });
         }
+        this.props.loadingAction(false);
     }
 
     async eliminarEmpleado(id: string) {
+        this.props.loadingAction(true);
         let response = await request(EMPLEADO_URL + '/' + id, "delete");
+        this.props.loadingAction(false);
         if (response.status !== false) {
 
             if (response.data.error) {
@@ -92,37 +102,33 @@ class Empleado extends Component<Iprops, EmpleadoState> {
 
     // render will know everything!
     render() {
-        if (this.state.empleados.length > 0) {
-            return (
+
+        return (
+            !this.state.sinempleados
+                ?
                 <IndexEmpleado
                     empleados={this.state.empleados}
                     deleteEmpleado={this.deleteEmpleado}
                 />
-            );
-        } else {
-            if (this.state.sinempleados) {
-                return (
-                    <div className="indexcont">
-                        <h1>Listado de Empleados</h1>
-                        <div className="buttonlist">
-                            <NavLink exact={true} className='button' to='/empleado/edit'>
-                                <FontAwesomeIcon icon={faPlus} />
-                                Crear empleado
-                            </NavLink>
-                        </div>
-                        <p className="text-center">Sin empleados.</p>
+                :
+                <div className="indexcont">
+                    <h1>Listado de Empleados</h1>
+                    <div className="buttonlist">
+                        <NavLink exact={true} className='button' to='/empleado/edit'>
+                            <FontAwesomeIcon icon={faPlus} />
+                            Crear empleado
+                        </NavLink>
                     </div>
-                );
-            } else {
-                return (
-                    <div className="indexcont">
-                        <p className="text-center">Cargando empleados...</p>
-                    </div>
-                );
-            }
-        }
-        // return <p>The current time is {this.state.time.toLocaleTimeString()}</p>
+                    <p className="text-center">Sin empleados.</p>
+                </div>
+        )
     }
 }
 
-export default Empleado;
+const mapDispatchToProps = {
+    loadingAction,
+}
+
+export default connect(null, mapDispatchToProps)(Empleado);
+
+// export default Empleado;

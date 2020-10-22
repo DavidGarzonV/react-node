@@ -6,6 +6,8 @@ import { EMPLEADO_URL, EMPRESA_URL } from '../../constants';
 import { EmpleadoInt } from '../../interfaces/empleadoint';
 import ComboBox from '../../components/Form/autocomplete';
 import FormEdit from './page';
+import loadingAction from '../../store/actions/loadingAction';
+import { connect } from 'react-redux';
 
 type AutocompleteOption = {
     label: string,
@@ -37,11 +39,14 @@ class EmpresaEdit extends React.Component<EmpresaInt, EmpresaState> {
     }
 
     async editEmpresa(id: string) {
+        this.props.loadingAction(true);
         let response = await request(EMPRESA_URL + "/" + id, "get");
         this.setState(response.data)
+        this.props.loadingAction(false);
     }
 
     async getEmpleados() {
+        this.props.loadingAction(true);
         let response = await request(EMPLEADO_URL, "get");
         if (response !== false) {
             let empleados = await response.data.map(function (empleado: EmpleadoInt) {
@@ -51,6 +56,7 @@ class EmpresaEdit extends React.Component<EmpresaInt, EmpresaState> {
                 empleados
             })
         }
+        this.props.loadingAction(false);
     }
 
     componentDidMount() {
@@ -75,6 +81,7 @@ class EmpresaEdit extends React.Component<EmpresaInt, EmpresaState> {
             data.contacto = data.contacto.value;
         }
 
+        this.props.loadingAction(true);
         if (this.state.id === "") {
             let response = await request(EMPRESA_URL, "post", data);
             if (response !== false) {
@@ -87,6 +94,7 @@ class EmpresaEdit extends React.Component<EmpresaInt, EmpresaState> {
                 Swal.fire("Operación exitosa", "Empresa guardada correctamente", "success");
             }
         }
+        this.props.loadingAction(false);
     }
 
     //Select autocomplete
@@ -109,4 +117,9 @@ class EmpresaEdit extends React.Component<EmpresaInt, EmpresaState> {
     }
 }
 
-export default EmpresaEdit;
+const mapDispatchToProps = {
+    loadingAction,
+}
+
+export default connect(null, mapDispatchToProps)(EmpresaEdit);
+// export default EmpresaEdit;

@@ -143,6 +143,21 @@ p.alertMessage {
     width: 100% !important;
 }
 
+//Loading
+
+.sweet-loading{
+    text-align: center;
+    background: #ffffffab;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    right: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 //Header
 ul.horizontal {
     list-style-type: none;

@@ -1,9 +1,9 @@
 import { combineReducers } from 'redux';
-import login from './login';
+import loading from './loading';
 import validateLogin from './validateLogin';
 
 const rootReducer = combineReducers({
-    login,
+    loading,
     validateLogin
 })
 

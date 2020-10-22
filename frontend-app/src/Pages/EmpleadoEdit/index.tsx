@@ -6,6 +6,8 @@ import { EMPLEADO_URL, EMPRESA_URL } from '../../constants';
 import { EmpresaInt } from '../../interfaces/empresaint';
 import FormEdit from './page';
 import ComboBox from '../../components/Form/autocomplete';
+import loadingAction from '../../store/actions/loadingAction';
+import { connect } from 'react-redux';
 
 type FormElement = React.FormEvent<HTMLFormElement>;
 
@@ -40,8 +42,10 @@ class EmpleadoEdit extends React.Component<EmpleadoInt, EmpleadoState> {
     }
 
     async editEmpleado(id: string) {
+        this.props.loadingAction(true);
         let response = await request(EMPLEADO_URL + "/" + id, "get");
         this.setState(response.data)
+        this.props.loadingAction(false);
     }
 
     componentDidMount() {
@@ -76,6 +80,7 @@ class EmpleadoEdit extends React.Component<EmpleadoInt, EmpleadoState> {
             this.setState({ validate: false })
         }
 
+        this.props.loadingAction(true);
         if (this.state.id === "") {
             let response = await request(EMPLEADO_URL, "post", data);
             if (response !== false) {
@@ -88,9 +93,11 @@ class EmpleadoEdit extends React.Component<EmpleadoInt, EmpleadoState> {
                 Swal.fire("Operación exitosa", "Empleado guardado correctamente", "success");
             }
         }
+        this.props.loadingAction(false);
     }
 
     async getCompanies() {
+        this.props.loadingAction(true);
         let response = await request(EMPRESA_URL, "get");
         if (response !== false) {
             let empresas = await response.data.map(function (empresa: EmpresaInt) {
@@ -100,6 +107,7 @@ class EmpleadoEdit extends React.Component<EmpleadoInt, EmpleadoState> {
                 empresas
             })
         }
+        this.props.loadingAction(false);
     }
 
     //Select autocomplete
@@ -127,4 +135,10 @@ class EmpleadoEdit extends React.Component<EmpleadoInt, EmpleadoState> {
     }
 }
 
-export default EmpleadoEdit;
+
+const mapDispatchToProps = {
+    loadingAction,
+}
+
+export default connect(null, mapDispatchToProps)(EmpleadoEdit);
+// export default EmpleadoEdit;

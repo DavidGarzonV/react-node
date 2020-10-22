@@ -1,14 +1,14 @@
-import { type as loginActionType } from '../actions/loginAction';
+import { type as loadingActionType } from '../actions/loadingAction';
 import { Action } from './../../interfaces/action';
 
 const defaultState = {
-    isLogin: false
+    loading: false
 };
 
 const reducer = (state = defaultState, { type, payload }: Action) => {
     switch (type) {
-        case loginActionType:{
-            return { ...state, isLogin: payload };
+        case loadingActionType:{
+            return { ...state, loading: payload };
         }
         default:
             return state;
