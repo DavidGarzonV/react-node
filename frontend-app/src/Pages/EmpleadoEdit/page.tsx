@@ -4,6 +4,7 @@ import { NavLink } from 'react-router-dom';
 import { faReply } from '@fortawesome/free-solid-svg-icons';
 import { EmpresaInt } from '../../interfaces/empresaint';
 import { AutocompleteOption } from '../../interfaces/autocomplete';
+import ComboBox from '../../components/Form/autocomplete';
 
 
 type IProps = {
@@ -17,7 +18,6 @@ type IProps = {
     phone: string,
     email: string,
     id: string,
-    combo: any,
     validate?:boolean | string
 }
 
@@ -52,7 +52,7 @@ const FormEdit = (props: IProps) => {
                 </div>
                 <div>
                     <label>Empresa:</label>
-                    {props.combo}
+                    <ComboBox options={props.empresas} name="company" value={props.company} label="Empresa" setInput={props.changeBox} />
                 </div>
                 <input type="hidden" name="id" onChange={props.handleChange} value={props.id} />
                 <input className="saveButton" type="submit" value="Guardar" />

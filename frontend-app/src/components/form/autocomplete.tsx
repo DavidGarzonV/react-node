@@ -30,7 +30,7 @@ export default function ComboBox(props: Props) {
             key="combo-box"
             value={value}
             onChange={(event, newInputValue) => {
-                props.setInput(props.name, newInputValue);
+                props.setInput(newInputValue);
             }}
             options={props.options}
             getOptionSelected={(option, value) => option.value === value.value}

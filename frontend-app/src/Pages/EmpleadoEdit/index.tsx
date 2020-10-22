@@ -69,6 +69,8 @@ class EmpleadoEdit extends React.Component<EmpleadoInt, EmpleadoState> {
         e.preventDefault();
         //Remove id from state
         let { id, empleados, ...data } = this.state;
+
+        data.company = this.state.company;
         if (data.company?.value !== undefined) {
             data.company = data.company.value;
         }
@@ -111,8 +113,8 @@ class EmpleadoEdit extends React.Component<EmpleadoInt, EmpleadoState> {
     }
 
     //Select autocomplete
-    changeBox(name: string, value: any) {
-        this.setState({ [name]: value })
+    changeBox(value: any) {
+        this.setState({ company: value })
     }
 
     render() {
@@ -124,7 +126,6 @@ class EmpleadoEdit extends React.Component<EmpleadoInt, EmpleadoState> {
                 empresas={this.state.empresas}
                 company={this.state.company}
                 validate={this.state.validate}
-                combo={<ComboBox options={this.state.empresas} name="company" value={this.state.company} label="Empresa" setInput={this.changeBox} />}
                 name={this.state.name}
                 last_name={this.state.last_name}
                 phone={this.state.phone}

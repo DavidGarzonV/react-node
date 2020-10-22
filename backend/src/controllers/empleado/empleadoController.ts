@@ -24,7 +24,7 @@ export const newEmpleado = async (req: any, res: any) => {
     const body = req.body;
 
     var company = null;
-    if (body.company != "") {
+    if (body.company !== "" && body.company !== null) {
         company = await empresaRepository.getEmpresaById(body.company);
     }
     try {
@@ -41,7 +41,7 @@ export const updateEmpleado = async (req: any, res: any) => {
     const body = req.body;
 
     var company = null;
-    if (body.company !== "" && body.company !== "") {
+    if (body.company !== "" && body.company !== "" && body.company !== null) {
         company = await empresaRepository.getEmpresaById(body.company);
     }
 

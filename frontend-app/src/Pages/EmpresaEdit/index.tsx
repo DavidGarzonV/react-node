@@ -59,6 +59,7 @@ class EmpresaEdit extends React.Component<EmpresaInt, EmpresaState> {
         this.props.loadingAction(false);
     }
 
+    //Called immediately after a component is mounted. Setting state here will trigger re-rendering.
     componentDidMount() {
         let { id } = this.props.match.params;
         if (id !== undefined) {
@@ -76,7 +77,7 @@ class EmpresaEdit extends React.Component<EmpresaInt, EmpresaState> {
         //Remove id from state
         let { id, empleados, ...data } = this.state;
 
-        data.contacto = this.state.empleado;
+        data.contacto = this.state.contacto;
         if (data.contacto?.value !== undefined) {
             data.contacto = data.contacto.value;
         }
@@ -98,8 +99,10 @@ class EmpresaEdit extends React.Component<EmpresaInt, EmpresaState> {
     }
 
     //Select autocomplete
-    changeBoxEmpresa(name: string, value: any) {
-        this.setState({ [name]: value })
+    changeBoxEmpresa(value: any) {
+        this.setState({
+            contacto: value 
+        },()=> console.log(this.state));
     }
 
     render() {
@@ -107,7 +110,9 @@ class EmpresaEdit extends React.Component<EmpresaInt, EmpresaState> {
             <FormEdit
                 handleSubmit={this.handleSubmit}
                 handleChange={this.handleChange}
-                combo={<ComboBox options={this.state.empleados} name="contacto" value={this.state.contacto} label="Contacto" setInput={this.changeBoxEmpresa} />}
+                empleados={this.state.empleados}
+                contacto={this.state.contacto}
+                changeBoxEmpresa={this.changeBoxEmpresa}
                 name={this.state.name}
                 nit={this.state.nit}
                 tipo={this.state.tipo}

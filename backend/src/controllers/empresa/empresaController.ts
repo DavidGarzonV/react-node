@@ -24,7 +24,7 @@ export const newEmpresa = async (req: any, res: any) => {
     const body = req.body;
 
     var contacto = null;
-    if (body.contacto != "") {
+    if (body.contacto !== "" && body.contacto !== null) {
         contacto = await empleadoRepository.getEmpleadoById(body.contacto);
     }
 
@@ -37,7 +37,7 @@ export const updateEmpresa = async (req: any, res: any) => {
     const body = req.body;
 
     var contacto = null;
-    if (body.contacto !== undefined && body.contacto !== "") {
+    if (body.contacto !== undefined && body.contacto !== "" && body.contacto !== null) {
         contacto = await empleadoRepository.getEmpleadoById(body.contacto);
     }
 

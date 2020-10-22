@@ -2,6 +2,7 @@ import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { NavLink } from 'react-router-dom';
 import { faReply } from '@fortawesome/free-solid-svg-icons';
+import ComboBox from '../../components/Form/autocomplete';
 
 type IProps = {
     handleSubmit: any,
@@ -10,9 +11,10 @@ type IProps = {
     nit: string,
     tipo: string,
     id: string,
-    combo: any,
+    empleados: any,
+    contacto: any,
+    changeBoxEmpresa: any,
 }
-
 
 const FormEdit = (props: IProps) => {
 
@@ -41,7 +43,7 @@ const FormEdit = (props: IProps) => {
                 </div>
                 <div>
                     <label>Contacto principal:</label>
-                    {props.combo}
+                    <ComboBox options={props.empleados} name="contacto" value={props.contacto} label="Contacto" setInput={props.changeBoxEmpresa} />
                 </div>
                 <input type="hidden" name="id" onChange={props.handleChange} value={props.id} />
                 <input className="saveButton" type="submit" value="Guardar" />
