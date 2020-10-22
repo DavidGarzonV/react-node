@@ -35,7 +35,7 @@ exports.getEmpleadoById = (req, res) => __awaiter(void 0, void 0, void 0, functi
 exports.newEmpleado = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const body = req.body;
     var company = null;
-    if (body.company != "") {
+    if (body.company !== "" && body.company !== null) {
         company = yield empresaRepository.getEmpresaById(body.company);
     }
     try {
@@ -50,7 +50,7 @@ exports.newEmpleado = (req, res) => __awaiter(void 0, void 0, void 0, function* 
 exports.updateEmpleado = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const body = req.body;
     var company = null;
-    if (body.company !== "" && body.company !== "") {
+    if (body.company !== "" && body.company !== "" && body.company !== null) {
         company = yield empresaRepository.getEmpresaById(body.company);
     }
     const empleado = new empleado_entity_1.EmpleadoEntity(req.params.id, body.name, body.last_name, body.phone, body.email, company);

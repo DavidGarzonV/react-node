@@ -35,7 +35,7 @@ exports.getEmpresaById = (req, res) => __awaiter(void 0, void 0, void 0, functio
 exports.newEmpresa = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const body = req.body;
     var contacto = null;
-    if (body.contacto != "") {
+    if (body.contacto !== "" && body.contacto !== null) {
         contacto = yield empleadoRepository.getEmpleadoById(body.contacto);
     }
     const empresa = new empresa_entity_1.EmpresaEntity(body.id, body.name, body.nit, body.tipo, contacto);
@@ -45,7 +45,7 @@ exports.newEmpresa = (req, res) => __awaiter(void 0, void 0, void 0, function* (
 exports.updateEmpresa = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const body = req.body;
     var contacto = null;
-    if (body.contacto !== undefined && body.contacto !== "") {
+    if (body.contacto !== undefined && body.contacto !== "" && body.contacto !== null) {
         contacto = yield empleadoRepository.getEmpleadoById(body.contacto);
     }
     const empresa = new empresa_entity_1.EmpresaEntity(req.params.id, body.name, body.nit, body.tipo, contacto);

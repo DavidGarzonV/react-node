@@ -21,6 +21,19 @@ $borderInput: transparent;
 $radiusButton: 0.25rem;
 $colorButton: #0069d9;
 
+body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+    font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
+}
+
 body,
 html {
     height: 100%;
@@ -275,7 +288,7 @@ ul.horizontal a.active {
     width: 150px;
 }
 
-//Pages
+//containers
 .indexcont {
     padding: 30px;
     border-radius: 18px;

@@ -1,13 +1,13 @@
 import React, { Fragment, useEffect } from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import Home from './components/Home';
-import Login from './Pages/Login';
+import Login from './pages/Login';
 import { useDispatch, useSelector } from 'react-redux';
 import './styles.scss';
-import NotAutorized from './Pages/401';
+import NotAutorized from './pages/401';
 //For login validating
 import { validating } from './store/actions/validateLogin';
-import Registro from './Pages/Registro';
+import Registro from './pages/Registro';
 import SyncLoader from "react-spinners/SyncLoader";
 import { Alert } from './components/Alert';
 

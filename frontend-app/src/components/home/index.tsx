@@ -1,12 +1,12 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
-import Empleado from '../../Pages/Empleado';
-import Empresa from '../../Pages/Empresa';
-import EmpleadoEdit from '../../Pages/EmpleadoEdit';
-import EmpresaEdit from '../../Pages/EmpresaEdit';
+import Empleado from '../../pages/Empleado';
+import Empresa from '../../pages/Empresa';
+import EmpleadoEdit from '../../pages/EmpleadoEdit';
+import EmpresaEdit from '../../pages/EmpresaEdit';
 import Header from '../Header';
-import Principal from '../../Pages/Principal';
-import NotFound from '../../Pages/404';
+import Principal from '../../pages/Principal';
+import NotFound from '../../pages/404';
 
 const Home = () => {
     return (
