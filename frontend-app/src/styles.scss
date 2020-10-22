@@ -114,6 +114,9 @@ a.button:hover {
     background-color: $backgroundInput;
     border: $borderInput !important;
 }
+.MuiIconButton-label{
+    color: $text;
+}
 
 table {
     background-color: $backgroundInput;

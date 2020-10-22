@@ -29,6 +29,7 @@ export default function ComboBox(props: Props) {
             id="combo-box"
             key="combo-box"
             value={value}
+            noOptionsText={"No se encontraron registros"}
             onChange={(event, newInputValue) => {
                 props.setInput(newInputValue);
             }}

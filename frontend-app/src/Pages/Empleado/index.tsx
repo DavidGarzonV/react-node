@@ -33,7 +33,7 @@ class Empleado extends Component<Iprops, EmpleadoState> {
         super(props);
         this.state = {
             empleados: [],
-            sinempleados: false
+            sinempleados: true
         }
 
         this.eliminarEmpleado = this.eliminarEmpleado.bind(this)
