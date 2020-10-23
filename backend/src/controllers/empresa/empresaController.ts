@@ -8,7 +8,22 @@ const empleadoRepository = new EmpleadoRepository();
 
 export const getAllEmpresas = async (req: any, res: any) => {
     const result = await repository.getAllEmpresas();
-    res.send(result);
+    const empresas = result.map(function (empresa, index, array) {
+        const res = {...empresa};
+        switch (res.tipo) {
+            case "pequenia":
+                res.tipo = "Pequeña";
+                break;
+            case "mediana":
+                res.tipo = "Mediana";
+                break;
+            case "grande":
+                res.tipo = "Grande";
+                break;
+        }
+        return res;
+    });
+    res.send(empresas);
 }
 
 export const getEmpresaById = async (req: any, res: any) => {

@@ -13,11 +13,11 @@ createConnection({
     password: process.env.DB_PASS,
     database: process.env.DB_NAME,
     entities: [__dirname + '/../entities/**/*.ts']
-}).then(async (conexion) => {
+}).then(async (connection) => {
     console.log("db connected");
 
     //Sincronize table configuration
-    await conexion.synchronize();
+    await connection.synchronize();
 
     const app = express();
     app.use(cors())

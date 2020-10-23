@@ -25,10 +25,10 @@ typeorm_1.createConnection({
     password: process.env.DB_PASS,
     database: process.env.DB_NAME,
     entities: [__dirname + '/../entities/**/*.ts']
-}).then((conexion) => __awaiter(void 0, void 0, void 0, function* () {
+}).then((connection) => __awaiter(void 0, void 0, void 0, function* () {
     console.log("db connected");
     //Sincronize table configuration
-    yield conexion.synchronize();
+    yield connection.synchronize();
     const app = express_1.default();
     app.use(cors());
     // parse application/x-www-form-urlencoded
